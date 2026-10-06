@@ -21,4 +21,9 @@ class Tradier:
   return o if isinstance(o,list) else [o]
  @staticmethod
  def observed_quote(q):
-  return {"captured_utc":datetime.now(timezone.utc).isoformat(),"symbol":q.get("symbol"),"description":q.get("description"),"bid":q.get("bid"),"ask":q.get("ask"),"last":q.get("last"),"bidsize":q.get("bidsize"),"asksize":q.get("asksize"),"bid_date":q.get("bid_date"),"ask_date":q.get("ask_date"),"trade_date":q.get("trade_date"),"type":q.get("type")}
+  keys=("symbol","description","underlying","root_symbol","type","bid","ask","last","bidsize","asksize",
+        "bid_date","ask_date","trade_date","strike","expiration_date","option_type","open_interest","volume","greeks")
+  out={k:q.get(k) for k in keys}
+  out["captured_utc"]=datetime.now(timezone.utc).isoformat()
+  out["source"]="Tradier"
+  return out
